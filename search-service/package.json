@@ -8,6 +8,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
+  "type": "module",
   "dependencies": {
     "amqplib": "^0.10.5",
     "cors": "^2.8.5",
