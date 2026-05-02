@@ -53,7 +53,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   logger.info("Login endpoint hit...");
   try {
-    const { error } = validatelogin(req.body);
+    const { error } = validateLogin(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({
@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
       userId: user._id,
     });
   } catch (e) {
-    logger.error("Login error occured", e);
+    logger.error("Login error occurred", e);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -154,7 +154,7 @@ const refreshTokenUser = async (req, res) => {
       refreshToken: newRefreshToken,
     });
   } catch (e) {
-    logger.error("Refresh token error occured", e);
+    logger.error("Refresh token error occurred", e);
     res.status(500).json({
       success: false,
       message: "Internal server error",
