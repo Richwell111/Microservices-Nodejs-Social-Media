@@ -18,4 +18,5 @@ const validateLogin = (data) => {
 
   return schema.validate(data);
 };
-export default { validateRegistration, validateLogin };
+
+export { validateRegistration, validateLogin };
