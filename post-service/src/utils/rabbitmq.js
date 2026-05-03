@@ -6,11 +6,7 @@ let channel = null;
 
 const EXCHANGE_NAME = "facebook_events";
 
-<<<<<<< HEAD
 export async function connectToRabbitMQ() {
-=======
-async function connectToRabbitMQ() {
->>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
   try {
     connection = await amqp.connect(process.env.RABBITMQ_URL);
     channel = await connection.createChannel();
@@ -23,11 +19,7 @@ async function connectToRabbitMQ() {
   }
 }
 
-<<<<<<< HEAD
 export async function publishEvent(routingKey, message) {
-=======
-async function publishEvent(routingKey, message) {
->>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
   if (!channel) {
     await connectToRabbitMQ();
   }
@@ -39,8 +31,3 @@ async function publishEvent(routingKey, message) {
   );
   logger.info(`Event published: ${routingKey}`);
 }
-<<<<<<< HEAD
-=======
-
-module.exports = { connectToRabbitMQ, publishEvent };
->>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377

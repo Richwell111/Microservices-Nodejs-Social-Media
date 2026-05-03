@@ -1,9 +1,5 @@
 import express from "express";
-<<<<<<< HEAD
 import { authenticateRequest } from "../middleware/authMiddleware.js";
-=======
-import { authenticateRequest } from "../middleware/auth.js";
->>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
 import {
   createPost,
   getAllPosts,
