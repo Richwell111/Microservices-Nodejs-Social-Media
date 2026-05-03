@@ -77,7 +77,7 @@ const getAllPosts = async (req, res) => {
 
     const result = {
       posts,
-      currentpage: page,
+      currentPage: page,
       totalPages: Math.ceil(totalNoOfPosts / limit),
       totalPosts: totalNoOfPosts,
     };
@@ -98,16 +98,16 @@ const getAllPosts = async (req, res) => {
 const getPost = async (req, res) => {
   try {
     const postId = req.params.id;
-    const cachekey = `post:${postId}`;
-    const cachedPost = await req.redisClient.get(cachekey);
+    const cacheKey = `post:${postId}`;
+    const cachedPost = await req.redisClient.get(cacheKey);
 
     if (cachedPost) {
       return res.json(JSON.parse(cachedPost));
     }
 
-    const singlePostDetailsbyId = await Post.findById(postId);
+    const singlePostDetailsById = await Post.findById(postId);
 
-    if (!singlePostDetailsbyId) {
+    if (!singlePostDetailsById) {
       return res.status(404).json({
         message: "Post not found",
         success: false,
@@ -117,10 +117,10 @@ const getPost = async (req, res) => {
     await req.redisClient.setex(
       cachedPost,
       3600,
-      JSON.stringify(singlePostDetailsbyId)
+      JSON.stringify(singlePostDetailsById)
     );
 
-    res.json(singlePostDetailsbyId);
+    res.json(singlePostDetailsById);
   } catch (e) {
     logger.error("Error fetching post", error);
     res.status(500).json({
