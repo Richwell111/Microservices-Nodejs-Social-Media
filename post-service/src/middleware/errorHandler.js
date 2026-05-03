@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import logger  from "../utils/logger.js";
+=======
+const logger = require("../utils/logger");
+
+>>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
 const errorHandler = (err, req, res, next) => {
   logger.error(err.stack);
 
@@ -7,6 +12,10 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
+<<<<<<< HEAD
 export { errorHandler };
 
 
+=======
+module.exports = errorHandler;
+>>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377

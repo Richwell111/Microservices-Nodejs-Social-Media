@@ -1,6 +1,10 @@
 import Post from "../models/Post.js";
 import { validateCreatePost } from "../utils/validation.js";
+<<<<<<< HEAD
 import { publishEvent } from "../utils/rabbitmq.js";
+=======
+import { publishEvent } from "../utils/eventBus.js";
+>>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
 import logger from "../utils/logger.js";
 async function invalidatePostCache(req, input) {
   const cachedKey = `post:${input}`;
@@ -164,4 +168,8 @@ const deletePost = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 export { createPost, getAllPosts, getPost, deletePost };
+=======
+module.exports = { createPost, getAllPosts, getPost, deletePost };
+>>>>>>> 452b70bc9fdd1bb39e19c04a001b1a1adbc18377
