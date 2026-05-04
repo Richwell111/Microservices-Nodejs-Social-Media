@@ -8,7 +8,10 @@ import { connectToRabbitMQ, consumeEvent } from "./utils/rabbitmq.js";
 import { handlePostDeleted } from "./eventHandlers/media-event-handlers.js";
 import errorHandler from "./middleware/errorHandler.js";
 import logger from "./utils/logger.js";
+import dotenv from "dotenv";
 
+
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3003;
 
