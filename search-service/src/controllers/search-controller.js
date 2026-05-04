@@ -6,6 +6,12 @@ const searchPostController = async (req, res) => {
   logger.info("Search endpoint hit!");
   try {
     const { query } = req.query;
+    const cacheKey = `post:${query}`;
+    const cachedPost = await req.redisClient.get(cacheKey);
+
+    if (cachedPost) {
+      return res.json(JSON.parse(cachedPost));
+    }
 
     const results = await Search.find(
       {
@@ -18,9 +24,12 @@ const searchPostController = async (req, res) => {
       .sort({ score: { $meta: "textScore" } })
       .limit(10);
 
+    // Save results to Redis cache with 5-minute expiration (300 seconds)
+    await req.redisClient.setex(cacheKey, 300, JSON.stringify(results));
+
     res.json(results);
   } catch (e) {
-    logger.error("Error while searching post", error);
+    logger.error("Error while searching post", e);
     res.status(500).json({
       success: false,
       message: "Error while searching post",

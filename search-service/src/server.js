@@ -85,8 +85,8 @@ async function startServer() {
     await connectToRabbitMQ();
 
     //consume the events / subscribe to the events
-    await consumeEvent("post.created", handlePostCreated);
-    await consumeEvent("post.deleted", handlePostDeleted);
+    await consumeEvent("post.created", (event) => handlePostCreated(event, redisClient));
+    await consumeEvent("post.deleted", (event) => handlePostDeleted(event, redisClient));
 
     app.listen(PORT, () => {
       logger.info(`Search service is running on port: ${PORT}`);
