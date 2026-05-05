@@ -22,6 +22,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Create empty env files for build
+        run: |
+          touch api-gateway/.env
+          touch identity-service/.env
+          touch post-service/.env
+          touch media-service/.env
+          touch search-service/.env
+
       - name: Build and push images
         run: |
           docker compose -f docker-compose.yml build
