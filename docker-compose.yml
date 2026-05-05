@@ -1,8 +1,8 @@
-version: '3.8'
 
 services:
   api-gateway:
     build: ./api-gateway
+    image: richman111/api-gateway:latest
     ports:
       - "3000:3000"
     env_file: ./api-gateway/.env
@@ -18,6 +18,7 @@ services:
 
   identity-service:
     build: ./identity-service
+    image: richman111/identity-service:latest
     env_file: ./identity-service/.env
     depends_on:
       rabbitmq:
@@ -31,6 +32,7 @@ services:
 
   post-service:
     build: ./post-service
+    image: richman111/post-service:latest
     env_file: ./post-service/.env
     depends_on:
       rabbitmq:
@@ -44,6 +46,7 @@ services:
 
   media-service:
     build: ./media-service
+    image: richman111/media-service:latest
     env_file: ./media-service/.env
     depends_on:
       rabbitmq:
@@ -57,6 +60,7 @@ services:
 
   search-service:
     build: ./search-service
+    image: richman111/search-service:latest
     env_file: ./search-service/.env
     depends_on:
       rabbitmq:
