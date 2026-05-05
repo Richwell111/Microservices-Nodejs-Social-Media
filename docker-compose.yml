@@ -7,8 +7,11 @@ services:
       - "3000:3000"
     env_file: ./api-gateway/.env
     depends_on:
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -17,8 +20,11 @@ services:
     build: ./identity-service
     env_file: ./identity-service/.env
     depends_on:
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -27,8 +33,11 @@ services:
     build: ./post-service
     env_file: ./post-service/.env
     depends_on:
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -37,8 +46,11 @@ services:
     build: ./media-service
     env_file: ./media-service/.env
     depends_on:
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -47,8 +59,11 @@ services:
     build: ./search-service
     env_file: ./search-service/.env
     depends_on:
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
@@ -57,14 +72,16 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+    restart: always
 
   rabbitmq:
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
+    restart: always
     healthcheck:
-      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
       retries: 5
